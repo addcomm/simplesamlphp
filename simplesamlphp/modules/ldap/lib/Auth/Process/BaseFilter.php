@@ -2,6 +2,8 @@
 
 namespace SimpleSAML\Module\ldap\Auth\Process;
 
+use SimpleSAML\Module\ldap\Auth\Ldap;
+
 /**
  * This base LDAP filter class can be extended to enable real
  * filter classes direct access to the authsource ldap config
@@ -49,9 +51,9 @@ abstract class BaseFilter extends \SimpleSAML\Auth\ProcessingFilter
      * Instance, object of the ldap connection. Stored here to
      * be access later during processing.
      *
-     * @var \SimpleSAML\Auth\LDAP
+     * @var \SimpleSAML\Module\ldap\Auth\Ldap|null
      */
-    private $ldap;
+    private $ldap = null;
 
 
     /**
@@ -249,12 +251,13 @@ abstract class BaseFilter extends \SimpleSAML\Auth\ProcessingFilter
         );
     }
 
+
     /**
      * Getter for the LDAP connection object. Created this getter
      * rather than setting in the constructor to avoid unnecessarily
      * connecting to LDAP when it might not be needed.
      *
-     * @return \SimpleSAML\Auth\LDAP
+     * @return \SimpleSAML\Module\ldap\Auth\Ldap
      */
     protected function getLdap()
     {
@@ -287,12 +290,13 @@ abstract class BaseFilter extends \SimpleSAML\Auth\ProcessingFilter
         );
 
         // Connect to the LDAP server to be queried during processing
-        $this->ldap = new \SimpleSAML\Auth\LDAP($hostname, $enable_tls, $debug, $timeout, $port, $referrals);
+        $this->ldap = new Ldap($hostname, $enable_tls, $debug, $timeout, $port, $referrals);
         $this->ldap->bind($username, $password);
 
         // All done
         return $this->ldap;
     }
+
 
     /**
      * Local utility function to get details about a variable,

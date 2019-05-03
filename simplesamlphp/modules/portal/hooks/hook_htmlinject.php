@@ -4,7 +4,6 @@
  * Hook to inject HTML content into all pages...
  *
  * @param array &$hookinfo  hookinfo
- * @return void
  */
 function portal_hook_htmlinject(&$hookinfo)
 {

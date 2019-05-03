@@ -7,6 +7,7 @@ namespace SimpleSAML\Module\core\Stats\Output;
  *
  * @package SimpleSAMLphp
  */
+
 class File extends \SimpleSAML\Stats\Output
 {
     /**
@@ -23,10 +24,9 @@ class File extends \SimpleSAML\Stats\Output
 
     /**
      * The current file date.
-     * @var string|null
+     * @var string
      */
     private $fileDate = null;
-
 
     /**
      * Initialize the output.
@@ -44,12 +44,10 @@ class File extends \SimpleSAML\Stats\Output
         }
     }
 
-
     /**
      * Open a log file.
      *
      * @param string $date  The date for the log file.
-     * @return void
      */
     private function openLog($date)
     {
@@ -72,12 +70,10 @@ class File extends \SimpleSAML\Stats\Output
         $this->fileDate = $date;
     }
 
-
     /**
      * Write a stats event.
      *
      * @param array $data  The event.
-     * @return void
      */
     public function emit(array $data)
     {

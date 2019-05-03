@@ -13,6 +13,7 @@ namespace SimpleSAML\Module\core\Auth;
  * @author Olav Morken, UNINETT AS.
  * @package SimpleSAMLphp
  */
+
 abstract class UserPassOrgBase extends \SimpleSAML\Auth\Source
 {
     /**
@@ -126,7 +127,6 @@ abstract class UserPassOrgBase extends \SimpleSAML\Auth\Source
      * If unconfigured, the default is 'none'.
      *
      * @param string $usernameOrgMethod  The method which should be used.
-     * @return void
      */
     protected function setUsernameOrgMethod($usernameOrgMethod)
     {
@@ -151,7 +151,6 @@ abstract class UserPassOrgBase extends \SimpleSAML\Auth\Source
         return $this->usernameOrgMethod;
     }
 
-
     /**
      * Getter for the authsource config option remember.username.enabled
      * @return bool
@@ -160,7 +159,6 @@ abstract class UserPassOrgBase extends \SimpleSAML\Auth\Source
     {
         return $this->rememberUsernameEnabled;
     }
-
 
     /**
      * Getter for the authsource config option remember.username.checked
@@ -171,7 +169,6 @@ abstract class UserPassOrgBase extends \SimpleSAML\Auth\Source
         return $this->rememberUsernameChecked;
     }
 
-
     /**
      * Getter for the authsource config option remember.organization.enabled
      * @return bool
@@ -180,7 +177,6 @@ abstract class UserPassOrgBase extends \SimpleSAML\Auth\Source
     {
         return $this->rememberOrganizationEnabled;
     }
-
 
     /**
      * Getter for the authsource config option remember.organization.checked
@@ -191,7 +187,6 @@ abstract class UserPassOrgBase extends \SimpleSAML\Auth\Source
         return $this->rememberOrganizationChecked;
     }
 
-
     /**
      * Initialize login.
      *
@@ -199,7 +194,6 @@ abstract class UserPassOrgBase extends \SimpleSAML\Auth\Source
      * login page.
      *
      * @param array &$state  Information about the current authentication.
-     * @return void
      */
     public function authenticate(&$state)
     {
@@ -257,7 +251,6 @@ abstract class UserPassOrgBase extends \SimpleSAML\Auth\Source
      * @param string $username  The username the user wrote.
      * @param string $password  The password the user wrote.
      * @param string $organization  The id of the organization the user chose.
-     * @return void
      */
     public static function handleLogin($authStateId, $username, $password, $organization)
     {
@@ -308,7 +301,7 @@ abstract class UserPassOrgBase extends \SimpleSAML\Auth\Source
      * This function is used by the login form to get the available organizations.
      *
      * @param string $authStateId  The identifier of the authentication state.
-     * @return array|null  Array of organizations. NULL if the user must enter the
+     * @return array|NULL  Array of organizations. NULL if the user must enter the
      *         organization as part of the username.
      */
     public static function listOrganizations($authStateId)

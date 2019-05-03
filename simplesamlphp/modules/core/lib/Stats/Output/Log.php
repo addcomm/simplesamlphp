@@ -7,20 +7,19 @@ namespace SimpleSAML\Module\core\Stats\Output;
  *
  * @package SimpleSAMLphp
  */
+
 class Log extends \SimpleSAML\Stats\Output
 {
     /**
      * The logging function we should call.
-     * @var callable
+     * @var callback
      */
     private $logger;
-
 
     /**
      * Initialize the output.
      *
      * @param \SimpleSAML\Configuration $config  The configuration for this output.
-     * @throws \Exception
      */
     public function __construct(\SimpleSAML\Configuration $config)
     {
@@ -31,12 +30,10 @@ class Log extends \SimpleSAML\Stats\Output
         }
     }
 
-
     /**
      * Write a stats event.
      *
-     * @param array $data  The event
-     * @return void
+     * @param string $data  The event (as a JSON string).
      */
     public function emit(array $data)
     {

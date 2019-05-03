@@ -6,53 +6,28 @@ namespace SimpleSAML\Module\statistics;
  * @author Andreas Åkre Solberg <andreas.solberg@uninett.no>
  * @package SimpleSAMLphp
  */
+
 class StatDataset
 {
-    /** @var \SimpleSAML\Configuration */
     protected $statconfig;
-
-    /** @var \SimpleSAML\Configuration */
     protected $ruleconfig;
-
-    /** @var \SimpleSAML\Configuration */
     protected $timeresconfig;
-
-    /** @var string */
     protected $ruleid;
 
-    /** @var int */
     protected $fileslot;
-
-    /** @var string */
     protected $timeres;
 
-    /** @var string */
     protected $delimiter;
-
-    /** @var array */
     protected $results;
-
-    /** @var array */
     protected $summary;
-
-    /** @var int */
     protected $max;
 
-    /** @var \SimpleSAML\Module\statistics\DateHandler */
     protected $datehandlerFile;
-
-    /** @var \SimpleSAML\Module\statistics\DateHandler */
     protected $datehandlerTick;
 
 
     /**
      * Constructor
-     *
-     * @param \SimpleSAML\Configuration $statconfig
-     * @param \SimpleSAML\Configuration $ruleconfig
-     * @param string $ruleid
-     * @param string $timeres
-     * @param int $fileslot
      */
     public function __construct($statconfig, $ruleconfig, $ruleid, $timeres, $fileslot)
     {
@@ -81,29 +56,16 @@ class StatDataset
         $this->loadData();
     }
 
-
-    /**
-     * @return int
-     */
     public function getFileSlot()
     {
         return $this->fileslot;
     }
 
-
-    /**
-     * @return string
-     */
     public function getTimeRes()
     {
         return $this->timeres;
     }
 
-
-    /**
-     * @param string $delimiter
-     * @return void
-     */
     public function setDelimiter($delimiter = '_')
     {
         if (empty($delimiter)) {
@@ -112,10 +74,6 @@ class StatDataset
         $this->delimiter = $delimiter;
     }
 
-
-    /**
-     * @return string|null
-     */
     public function getDelimiter()
     {
         if ($this->delimiter === '_') {
@@ -124,10 +82,6 @@ class StatDataset
         return $this->delimiter;
     }
 
-
-    /**
-     * @return void
-     */
     public function calculateMax()
     {
         $maxvalue = 0;
@@ -140,10 +94,6 @@ class StatDataset
         $this->max = Graph\GoogleCharts::roof($maxvalue);
     }
 
-
-    /**
-     * @return array
-     */
     public function getDebugData()
     {
         $debugdata = [];
@@ -160,10 +110,6 @@ class StatDataset
         return $debugdata;
     }
 
-
-    /**
-     * @return void
-     */
     public function aggregateSummary()
     {
         // aggregate summary table from dataset. To be used in the table view
@@ -181,10 +127,6 @@ class StatDataset
         $this->summary = array_reverse($this->summary, true);
     }
 
-
-    /**
-     * @return array
-     */
     public function getTopDelimiters()
     {
         // create a list of delimiter keys that has the highest total summary in this period
@@ -202,10 +144,6 @@ class StatDataset
         return $topdelimiters;
     }
 
-
-    /**
-     * @return array
-     */
     public function availDelimiters()
     {
         $availDelimiters = [];
@@ -215,10 +153,6 @@ class StatDataset
         return array_keys($availDelimiters);
     }
 
-
-    /**
-     * @return array
-     */
     public function getPieData()
     {
         $piedata = [];
@@ -233,37 +167,21 @@ class StatDataset
         return $piedata;
     }
 
-
-    /**
-     * @return int
-     */
     public function getMax()
     {
         return $this->max;
     }
 
-
-    /**
-     * @return array
-     */
     public function getSummary()
     {
         return $this->summary;
     }
 
-
-    /**
-     * @return array
-     */
     public function getResults()
     {
         return $this->results;
     }
 
-
-    /**
-     * @return array
-     */
     public function getAxis()
     {
         $slotsize = $this->timeresconfig->getValue('slot');
@@ -291,10 +209,8 @@ class StatDataset
         return ['axis' => $axis, 'axispos' => $axispos];
     }
 
-
-    /**
+    /*
      * Walk through dataset to get percent values from max into dataset[].
-     * @return array
      */
     public function getPercentValues()
     {
@@ -316,11 +232,6 @@ class StatDataset
         return $dataset;
     }
 
-
-    /**
-     * @return array
-     * @throws \Exception
-     */
     public function getDelimiterPresentation()
     {
         $config = \SimpleSAML\Configuration::getInstance();
@@ -346,10 +257,6 @@ class StatDataset
         return [];
     }
 
-
-    /**
-     * @return array
-     */
     public function getDelimiterPresentationPie()
     {
         $topdelimiters = $this->getTopDelimiters();
@@ -367,10 +274,6 @@ class StatDataset
         return $pieaxis;
     }
 
-
-    /**
-     * @return void
-     */
     public function loadData()
     {
         $statdir = $this->statconfig->getValue('statdir');

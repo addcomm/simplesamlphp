@@ -11,6 +11,7 @@ namespace SimpleSAML\Module\core\Auth;
  * @author Olav Morken, UNINETT AS.
  * @package SimpleSAMLphp
  */
+
 abstract class UserPassBase extends \SimpleSAML\Auth\Source
 {
     /**
@@ -71,7 +72,6 @@ abstract class UserPassBase extends \SimpleSAML\Auth\Source
      */
     protected $rememberMeChecked = false;
 
-
     /**
      * Constructor for this authentication source.
      *
@@ -109,12 +109,10 @@ abstract class UserPassBase extends \SimpleSAML\Auth\Source
         $this->rememberMeChecked = $sspcnf->getBoolean('session.rememberme.checked', false);
     }
 
-
     /**
      * Set forced username.
      *
-     * @param string|null $forcedUsername  The forced username.
-     * @return void
+     * @param string|NULL $forcedUsername  The forced username.
      */
     public function setForcedUsername($forcedUsername)
     {
@@ -124,13 +122,11 @@ abstract class UserPassBase extends \SimpleSAML\Auth\Source
 
     /**
      * Return login links from configuration
-     * @return array
      */
     public function getLoginLinks()
     {
         return $this->loginLinks;
     }
-
 
     /**
      * Getter for the authsource config option remember.username.enabled
@@ -141,7 +137,6 @@ abstract class UserPassBase extends \SimpleSAML\Auth\Source
         return $this->rememberUsernameEnabled;
     }
 
-
     /**
      * Getter for the authsource config option remember.username.checked
      * @return bool
@@ -150,7 +145,6 @@ abstract class UserPassBase extends \SimpleSAML\Auth\Source
     {
         return $this->rememberUsernameChecked;
     }
-
 
     /**
      * Check if the "remember me" feature is enabled.
@@ -161,7 +155,6 @@ abstract class UserPassBase extends \SimpleSAML\Auth\Source
         return $this->rememberMeEnabled;
     }
 
-
     /**
      * Check if the "remember me" checkbox should be checked.
      * @return bool TRUE if enabled, FALSE otherwise.
@@ -171,7 +164,6 @@ abstract class UserPassBase extends \SimpleSAML\Auth\Source
         return $this->rememberMeChecked;
     }
 
-
     /**
      * Initialize login.
      *
@@ -179,7 +171,6 @@ abstract class UserPassBase extends \SimpleSAML\Auth\Source
      * login page.
      *
      * @param array &$state  Information about the current authentication.
-     * @return void
      */
     public function authenticate(&$state)
     {
@@ -242,7 +233,6 @@ abstract class UserPassBase extends \SimpleSAML\Auth\Source
         assert(false);
     }
 
-
     /**
      * Attempt to log in using the given username and password.
      *
@@ -258,7 +248,6 @@ abstract class UserPassBase extends \SimpleSAML\Auth\Source
      */
     abstract protected function login($username, $password);
 
-
     /**
      * Handle login request.
      *
@@ -269,7 +258,6 @@ abstract class UserPassBase extends \SimpleSAML\Auth\Source
      * @param string $authStateId  The identifier of the authentication state.
      * @param string $username  The username the user wrote.
      * @param string $password  The password the user wrote.
-     * @return void
      */
     public static function handleLogin($authStateId, $username, $password)
     {

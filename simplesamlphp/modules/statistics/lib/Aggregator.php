@@ -6,40 +6,21 @@ namespace SimpleSAML\Module\statistics;
  * @author Andreas Åkre Solberg <andreas.solberg@uninett.no>
  * @package SimpleSAMLphp
  */
+
 class Aggregator
 {
-    /** @var \SimpleSAML\Configuration */
     private $statconfig;
-
-    /** @var string */
     private $statdir;
-
-    /** @var string */
     private $inputfile;
-
-    /** @var array */
     private $statrules;
-
-    /** @var int */
     private $offset;
-
-    /** @var array|null */
-    private $metadata = null;
-
-    /** @var bool */
+    private $metadata;
     private $fromcmdline;
-
-    /** @var int */
     private $starttime;
-
-    /** @var array */
     private $timeres;
-
 
     /**
      * Constructor
-     *
-     * @param bool $fromcmdline
      */
     public function __construct($fromcmdline = false)
     {
@@ -51,14 +32,11 @@ class Aggregator
         $this->statrules = $this->statconfig->getValue('statrules');
         $this->timeres = $this->statconfig->getValue('timeres');
         $this->offset = $this->statconfig->getValue('offset', 0);
+        $this->metadata = null;
 
         $this->starttime = time();
     }
 
-
-    /**
-     * @return void
-     */
     public function dumpConfig()
     {
         echo 'Statistics directory   : '.$this->statdir."\n";
@@ -66,19 +44,11 @@ class Aggregator
         echo 'Offset                 : '.$this->offset."\n";
     }
 
-
-    /**
-     * @return void
-     */
     public function debugInfo()
     {
         echo 'Memory usage           : '.number_format(memory_get_usage() / 1048576, 2)." MB\n"; // 1024*1024=1048576
     }
 
-
-    /**
-     * @return void
-     */
     public function loadMetadata()
     {
         $filename = $this->statdir.'/.stat.metadata';
@@ -89,19 +59,11 @@ class Aggregator
         $this->metadata = $metadata;
     }
 
-
-    /**
-     * @return array|null
-     */
     public function getMetadata()
     {
         return $this->metadata;
     }
 
-
-    /**
-     * @return void
-     */
     public function saveMetadata()
     {
         $this->metadata['time'] = time() - $this->starttime;
@@ -112,12 +74,6 @@ class Aggregator
         file_put_contents($filename, serialize($this->metadata), LOCK_EX);
     }
 
-
-    /**
-     * @param bool $debug
-     * @return array
-     * @throws \Exception
-     */
     public function aggregate($debug = false)
     {
         $this->loadMetadata();
@@ -254,12 +210,6 @@ class Aggregator
         return $results;
     }
 
-
-    /**
-     * @param array $content
-     * @param mixed $colrule
-     * @return string
-     */
     private static function getDifCol($content, $colrule)
     {
         if (is_int($colrule)) {
@@ -275,12 +225,6 @@ class Aggregator
         }
     }
 
-
-    /**
-     * @param mixed $previous
-     * @param array $newdata
-     * @return array
-     */
     private function cummulateData($previous, $newdata)
     {
         $dataset = [];
@@ -300,11 +244,6 @@ class Aggregator
         return $dataset;
     }
 
-
-    /**
-     * @param array $results
-     * @return void
-     */
     public function store($results)
     {
         $datehandler = [

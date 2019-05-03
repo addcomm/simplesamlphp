@@ -14,15 +14,8 @@ namespace SimpleSAML\Module\core\Storage;
 
 class SQLPermanentStorage
 {
-    /** @var \PDO */
     private $db;
 
-
-    /**
-     * @param string $name
-     * @param \SimpleSAML\Configuration|null $config
-     * @throws \Exception
-     */
     public function __construct($name, $config = null)
     {
         if (is_null($config)) {
@@ -64,15 +57,6 @@ class SQLPermanentStorage
         }
     }
 
-
-    /**
-     * @param string $type
-     * @param mixed $key1
-     * @param mixed $key2
-     * @param mixed $value
-     * @param int|null $duration
-     * @return void
-     */
     public function set($type, $key1, $key2, $value, $duration = null)
     {
         if ($this->exists($type, $key1, $key2)) {
@@ -82,15 +66,6 @@ class SQLPermanentStorage
         }
     }
 
-
-    /**
-     * @param string $type
-     * @param mixed $key1
-     * @param mixed $key2
-     * @param mixed $value
-     * @param int|null $duration
-     * @return array
-     */
     private function insert($type, $key1, $key2, $value, $duration = null)
     {
         $expire = is_null($duration) ? null : (time() + $duration);
@@ -107,15 +82,6 @@ class SQLPermanentStorage
         return $results;
     }
 
-
-    /**
-     * @param string $type
-     * @param mixed $key1
-     * @param mixed $key2
-     * @param mixed $value
-     * @param int|null $duration
-     * @return array
-     */
     private function update($type, $key1, $key2, $value, $duration = null)
     {
         $expire = is_null($duration) ? null : (time() + $duration);
@@ -131,13 +97,6 @@ class SQLPermanentStorage
         return $results;
     }
 
-
-    /**
-     * @param string $type
-     * @param mixed $key1
-     * @param mixed $key2
-     * @return array|null
-     */
     public function get($type = null, $key1 = null, $key2 = null)
     {
         $conditions = $this->getCondition($type, $key1, $key2);
@@ -155,13 +114,8 @@ class SQLPermanentStorage
         return $res;
     }
 
-    /**
+    /*
      * Return the value directly (not in a container)
-     *
-     * @param string $type
-     * @param mixed $key1
-     * @param mixed $key2
-     * @return array|null
      */
     public function getValue($type = null, $key1 = null, $key2 = null)
     {
@@ -172,13 +126,6 @@ class SQLPermanentStorage
         return $res['value'];
     }
 
-
-    /**
-     * @param string $type
-     * @param mixed $key1
-     * @param mixed $key2
-     * @return bool
-     */
     public function exists($type, $key1, $key2)
     {
         $query = 'SELECT * FROM data WHERE type = :type AND key1 = :key1 AND key2 = :key2 LIMIT 1';
@@ -189,13 +136,6 @@ class SQLPermanentStorage
         return (count($results) == 1);
     }
 
-
-    /**
-     * @param string $type
-     * @param mixed $key1
-     * @param mixed $key2
-     * @return array|false|null
-     */
     public function getList($type = null, $key1 = null, $key2 = null)
     {
         $conditions = $this->getCondition($type, $key1, $key2);
@@ -214,15 +154,6 @@ class SQLPermanentStorage
         return $results;
     }
 
-
-    /**
-     * @param string $type
-     * @param mixed $key1
-     * @param mixed $key2
-     * @param string $whichKey
-     * @throws \Exception
-     * @return array|null
-     */
     public function getKeys($type = null, $key1 = null, $key2 = null, $whichKey = 'type')
     {
         if (!in_array($whichKey, ['key1', 'key2', 'type'], true)) {
@@ -247,12 +178,6 @@ class SQLPermanentStorage
         return $resarray;
     }
 
-    /**
-     * @param string $type
-     * @param mixed $key1
-     * @param mixed $key2
-     * @return bool
-     */
     public function remove($type, $key1, $key2)
     {
         $query = 'DELETE FROM data WHERE type = :type AND key1 = :key1 AND key2 = :key2';
@@ -263,10 +188,6 @@ class SQLPermanentStorage
         return (count($results) == 1);
     }
 
-
-    /**
-     * @return int
-     */
     public function removeExpired()
     {
         $query = "DELETE FROM data WHERE expire IS NOT NULL AND expire < :expire";
@@ -278,11 +199,6 @@ class SQLPermanentStorage
 
     /**
      * Create a SQL condition statement based on parameters
-     *
-     * @param string $type
-     * @param mixed $key1
-     * @param mixed $key2
-     * @return string
      */
     private function getCondition($type = null, $key1 = null, $key2 = null)
     {

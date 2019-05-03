@@ -2,6 +2,10 @@
 
 namespace SimpleSAML\Module\ldap\Auth\Process;
 
+use SimpleSAML\Module\ldap\Auth\Ldap;
+
+use Webmozart\Assert\Assert;
+
 /**
  * Filter to add attributes to the identity by executing a query against an LDAP directory
  *
@@ -140,8 +144,8 @@ class AttributeAddFromLDAP extends BaseFilter
      */
     public function process(&$request)
     {
-        assert(is_array($request));
-        assert(array_key_exists('Attributes', $request));
+        Assert::isArray($request);
+        Assert::keyExists($request, 'Attributes');
 
         $attributes = &$request['Attributes'];
 
@@ -153,7 +157,7 @@ class AttributeAddFromLDAP extends BaseFilter
             $arrSearch[] = '%'.$attr.'%';
 
             if (strlen($val[0]) > 0) {
-                $arrReplace[] = \SimpleSAML\Auth\LDAP::escape_filter_value($val[0]);
+                $arrReplace[] = Ldap::escape_filter_value($val[0]);
             } else {
                 $arrReplace[] = '';
             }

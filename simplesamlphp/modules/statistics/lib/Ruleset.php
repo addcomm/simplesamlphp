@@ -6,25 +6,16 @@ namespace SimpleSAML\Module\statistics;
  * @author Andreas Åkre Solberg <andreas.solberg@uninett.no>
  * @package SimpleSAMLphp
  */
+
 class Ruleset
 {
-    /** \SimpleSAML\Configuration */
     private $statconfig;
-
-    /** @var array */
     private $availrulenames;
-
-    /** @var array */
     private $availrules;
-
-    /** @var array */
     private $available;
-
 
     /**
      * Constructor
-     *
-     * @param \SimpleSAML\Configuration $statconfig
      */
     public function __construct($statconfig)
     {
@@ -32,10 +23,6 @@ class Ruleset
         $this->init();
     }
 
-
-    /**
-     * @return void
-     */
     private function init()
     {
         $statdir = $this->statconfig->getValue('statdir');
@@ -46,7 +33,7 @@ class Ruleset
          * Walk through file lists, and get available [rule][fileslot]...
          */
         if (!is_dir($statdir)) {
-            throw new \Exception('Statisics output directory ['.$statdir.'] does not exist.');
+            throw new \Exception('Statisics output directory ['.$statdir.'] does not exists.');
         }
         $filelist = scandir($statdir);
         $this->available = [];
@@ -74,30 +61,18 @@ class Ruleset
         $this->availrulenames = $available_rules;
     }
 
-
-    /**
-     * @return array
-     */
     public function availableRules()
     {
         return $this->availrules;
     }
 
-
-    /**
-     * @return array
-     */
     public function availableRulesNames()
     {
         return $this->availrulenames;
     }
 
-
     /**
      * Resolve which rule is selected. Taking user preference and checks if it exists.
-     *
-     * @param array|null $preferRule
-     * @return array|null
      */
     private function resolveSelectedRule($preferRule = null)
     {
@@ -110,11 +85,6 @@ class Ruleset
         return $rule;
     }
 
-
-    /**
-     * @param array|null $preferRule
-     * @return \SimpleSAML\Module\statistics\Statistics\Rulesets\BaseRule
-     */
     public function getRule($preferRule)
     {
         $rule = $this->resolveSelectedRule($preferRule);

@@ -45,7 +45,6 @@ class TestController
     /**
      * Display the list of available authsources.
      *
-     * @param string|null $as
      * @return \SimpleSAML\XHTML\Template
      */
     public function main(Request $request, $as)
@@ -68,7 +67,7 @@ class TestController
             }
 
             if (!$authsource->isAuthenticated()) {
-                $url = \SimpleSAML\Module::getModuleURL('admin/test/'.$as, []);
+                $url = \SimpleSAML\Module::getModuleURL('admin/test/' .$as, []);
                 $params = [
                     'ErrorURL' => $url,
                     'ReturnTo' => $url,
@@ -100,11 +99,6 @@ class TestController
     }
 
 
-    /**
-     * @param \SimpleSAML\XHTML\Template $t
-     * @param \SAML2\XML\saml\NameID $nameId
-     * @return string
-     */
     private function getNameIDHTML(\SimpleSAML\XHTML\Template $t, \SAML2\XML\saml\NameID $nameId)
     {
         $result = '';
@@ -132,12 +126,6 @@ class TestController
     }
 
 
-    /**
-     * @param \SimpleSAML\XHTML\Template $t
-     * @param array $attributes
-     * @param string $nameParent
-     * @return string
-     */
     private function getAttributesHTML(\SimpleSAML\XHTML\Template $t, $attributes, $nameParent)
     {
         $alternate = ['pure-table-odd', 'pure-table-even'];
@@ -209,11 +197,6 @@ class TestController
         return $str;
     }
 
-
-    /**
-     * @param array|string $attr
-     * @return string
-     */
     private function present_list($attr)
     {
         if (is_array($attr) && count($attr) > 1) {
@@ -228,11 +211,6 @@ class TestController
         }
     }
 
-
-    /**
-     * @param array|string $attr
-     * @return string
-     */
     private function present_assoc($attr)
     {
         if (is_array($attr)) {
@@ -247,12 +225,6 @@ class TestController
         }
     }
 
-
-    /**
-     * @param \SimpleSAML\Locale\Translate $t
-     * @param \SAML2\XML\saml\NameID $nameID
-     * @return string
-     */
     private function present_eptid(\SimpleSAML\Locale\Translate $t, \SAML2\XML\saml\NameID $nameID)
     {
         $eptid = [

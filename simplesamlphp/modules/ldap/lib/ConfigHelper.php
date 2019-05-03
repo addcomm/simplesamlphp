@@ -2,6 +2,8 @@
 
 namespace SimpleSAML\Module\ldap;
 
+use Webmozart\Assert\Assert;
+
 /**
  * LDAP authentication source configuration parser.
  *
@@ -122,10 +124,9 @@ class ConfigHelper
      * @param array $config  Configuration.
      * @param string $location  The location of this configuration. Used for error reporting.
      */
-    public function __construct($config, $location)
+    public function __construct(array $config, $location)
     {
-        assert(is_array($config));
-        assert(is_string($location));
+        Assert::string($location);
 
         $this->location = $location;
 
@@ -178,15 +179,15 @@ class ConfigHelper
      */
     public function login($username, $password, array $sasl_args = null)
     {
-        assert(is_string($username));
-        assert(is_string($password));
+        Assert::string($username);
+        Assert::string($password);
 
         if (empty($password)) {
             \SimpleSAML\Logger::info($this->location.': Login with empty password disallowed.');
             throw new \SimpleSAML\Error\Error('WRONGUSERPASS');
         }
 
-        $ldap = new \SimpleSAML\Auth\LDAP(
+        $ldap = new Auth\Ldap(
             $this->hostname,
             $this->enableTLS,
             $this->debug,
@@ -205,6 +206,10 @@ class ConfigHelper
                 }
             }
 
+            /**
+             * PHPdoc changed in SSP 1.18; Remove it after release
+             * @var string|null $dn
+             */
             $dn = $ldap->searchfordn(
                 $this->searchBase,
                 $this->searchAttributes,
@@ -213,6 +218,7 @@ class ConfigHelper
                 $this->searchFilter,
                 $this->searchScope
             );
+
             if ($dn === null) {
                 /* User not found with search. */
                 \SimpleSAML\Logger::info($this->location.': Unable to find users DN. username=\''.$username.'\'');
@@ -266,7 +272,7 @@ class ConfigHelper
      */
     public function searchfordn($attribute, $value, $allowZeroHits)
     {
-        $ldap = new \SimpleSAML\Auth\LDAP(
+        $ldap = new Auth\Ldap(
             $this->hostname,
             $this->enableTLS,
             $this->debug,
@@ -308,7 +314,7 @@ class ConfigHelper
             $attributes = $this->attributes;
         }
 
-        $ldap = new \SimpleSAML\Auth\LDAP(
+        $ldap = new Auth\Ldap(
             $this->hostname,
             $this->enableTLS,
             $this->debug,

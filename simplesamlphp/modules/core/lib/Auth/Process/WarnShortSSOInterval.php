@@ -7,6 +7,7 @@ namespace SimpleSAML\Module\core\Auth\Process;
  *
  * @package SimpleSAMLphp
  */
+
 class WarnShortSSOInterval extends \SimpleSAML\Auth\ProcessingFilter
 {
     /**
@@ -16,7 +17,6 @@ class WarnShortSSOInterval extends \SimpleSAML\Auth\ProcessingFilter
      * If it is to short a while since, we will show a warning to the user.
      *
      * @param array $state  The state of the response.
-     * @return void
      */
     public function process(&$state)
     {

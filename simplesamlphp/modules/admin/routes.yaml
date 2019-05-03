@@ -13,6 +13,3 @@ admin-test:
 admin-fed:
     path:       /federation
     defaults:   { _controller: 'SimpleSAML\Module\admin\FederationController::main' }
-admin-fed-converter:
-    path:       /federation/metadata-converter
-    defaults:   { _controller: 'SimpleSAML\Module\admin\FederationController::metadataConverter' }

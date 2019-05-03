@@ -103,7 +103,6 @@ class NameIDAttribute extends \SimpleSAML\Auth\ProcessingFilter
      * Convert NameID to attribute.
      *
      * @param array &$state The request state.
-     * @return void
      */
     public function process(&$state)
     {

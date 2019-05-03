@@ -7,16 +7,13 @@ namespace SimpleSAML\Module\statistics;
  *
  * @package SimpleSAMLphp
  */
+
 class AccessCheck
 {
     /**
      * Check that the user has access to the statistics.
-     * If the user doesn't have access, send the user to the login page.
      *
-     * @param \SimpleSAML\Configuration $statconfig
-     * @return void
-     * @throws \Exception
-     * @throws \SimpleSAML\Error\Exception
+     * If the user doesn't have access, send the user to the login page.
      */
     public static function checkAccess(\SimpleSAML\Configuration $statconfig)
     {

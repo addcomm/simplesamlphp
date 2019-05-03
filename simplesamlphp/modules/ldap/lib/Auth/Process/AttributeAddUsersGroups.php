@@ -2,6 +2,9 @@
 
 namespace SimpleSAML\Module\ldap\Auth\Process;
 
+use SimpleSAML\Utils\Arrays;
+use Webmozart\Assert\Assert;
+
 /**
  * Does a reverse membership lookup on the logged in user,
  * looking for groups it is a member of and adds them to
@@ -24,8 +27,8 @@ class AttributeAddUsersGroups extends BaseFilter
      */
     public function process(&$request)
     {
-        assert(is_array($request));
-        assert(array_key_exists('Attributes', $request));
+        Assert::isArray($request);
+        Assert::keyExists($request, 'Attributes');
 
         // Log the process
         \SimpleSAML\Logger::debug(
@@ -226,10 +229,8 @@ class AttributeAddUsersGroups extends BaseFilter
      * @param array $memberof
      * @return array
      */
-    protected function search($memberof)
+    protected function search(array $memberof)
     {
-        assert(is_array($memberof));
-
         // Used to determine what DN's have already been searched
         static $searched = [];
 
@@ -306,7 +307,7 @@ class AttributeAddUsersGroups extends BaseFilter
      */
     protected function searchActiveDirectory($dn)
     {
-        assert(is_string($dn) && $dn != '');
+        Assert::stringNotEmpty($dn);
 
         // Shorten the variable name
         $map = &$this->attribute_map;
@@ -319,7 +320,7 @@ class AttributeAddUsersGroups extends BaseFilter
             ' Member Attribute: '.$map['member'].
             ' Type Attribute: '.$map['type'].
             ' Type Value: '.$this->type_map['group'].
-            ' Base: '.implode('; ', $this->base_dn)
+            ' Base: '.implode('; ', Arrays::Arrayize($this->base_dn))
         );
 
         // AD connections should have this set

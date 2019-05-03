@@ -7,14 +7,15 @@ namespace SimpleSAML\Module\saml\Auth\Process;
  *
  * @package SimpleSAMLphp
  */
+
 class AuthnContextClassRef extends \SimpleSAML\Auth\ProcessingFilter
 {
     /**
      * The URI we should set as the AuthnContextClassRef in the login response.
      *
-     * @var string|null
+     * @var string
      */
-    private $authnContextClassRef = null;
+    private $authnContextClassRef;
 
 
     /**
@@ -42,7 +43,6 @@ class AuthnContextClassRef extends \SimpleSAML\Auth\ProcessingFilter
      * Set the AuthnContextClassRef in the SAML 2 response.
      *
      * @param array &$state The state array for this request.
-     * @return void
      */
     public function process(&$state)
     {

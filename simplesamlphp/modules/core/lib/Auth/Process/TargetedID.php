@@ -30,6 +30,7 @@ namespace SimpleSAML\Module\core\Auth\Process;
  * @author Olav Morken, UNINETT AS.
  * @package SimpleSAMLphp
  */
+
 class TargetedID extends \SimpleSAML\Auth\ProcessingFilter
 {
     /**
@@ -45,14 +46,13 @@ class TargetedID extends \SimpleSAML\Auth\ProcessingFilter
      */
     private $generateNameId = false;
 
-
     /**
      * Initialize this filter.
      *
-     * @param array &$config  Configuration information about this filter.
+     * @param array $config  Configuration information about this filter.
      * @param mixed $reserved  For future use.
      */
-    public function __construct(&$config, $reserved)
+    public function __construct($config, $reserved)
     {
         parent::__construct($config, $reserved);
 
@@ -73,12 +73,10 @@ class TargetedID extends \SimpleSAML\Auth\ProcessingFilter
         }
     }
 
-
     /**
      * Apply filter to add the targeted ID.
      *
      * @param array &$state  The current state.
-     * @return void
      */
     public function process(&$state)
     {
@@ -143,7 +141,6 @@ class TargetedID extends \SimpleSAML\Auth\ProcessingFilter
 
         $state['Attributes']['eduPersonTargetedID'] = [$nameId];
     }
-
 
     /**
      * Generate ID from entity metadata.

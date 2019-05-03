@@ -4,28 +4,15 @@ namespace SimpleSAML\Module\portal;
 
 class Portal
 {
-    /** @var array */
     private $pages;
-
-    /** @var array|null */
     private $config;
 
-
-    /**
-     * @param array $pages
-     * @param array|null $config
-     */
     public function __construct($pages, $config = null)
     {
         $this->pages = $pages;
         $this->config = $config;
     }
 
-
-    /**
-     * @param string $thispage
-     * @return array|null
-     */
     public function getTabset($thispage)
     {
         if (!isset($this->config)) {
@@ -39,11 +26,6 @@ class Portal
         return null;
     }
 
-
-    /**
-     * @param string $thispage
-     * @return bool
-     */
     public function isPortalized($thispage)
     {
         foreach ($this->config as $set) {
@@ -54,12 +36,6 @@ class Portal
         return false;
     }
 
-
-    /**
-     * @param \SimpleSAML\Locale\Translate $translator
-     * @param string $thispage
-     * @return string
-     */
     public function getLoginInfo($translator, $thispage)
     {
         $info = ['info' => '', 'translator' => $translator, 'thispage' => $thispage];
@@ -67,11 +43,6 @@ class Portal
         return $info['info'];
     }
 
-
-    /**
-     * @param string
-     * @return string
-     */
     public function getMenu($thispage)
     {
         $config = \SimpleSAML\Configuration::getInstance();

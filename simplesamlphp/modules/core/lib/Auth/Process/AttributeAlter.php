@@ -10,6 +10,7 @@ namespace SimpleSAML\Module\core\Auth\Process;
  * @author Jacob Christiansen, WAYF
  * @package SimpleSAMLphp
  */
+
 class AttributeAlter extends \SimpleSAML\Auth\ProcessingFilter
 {
     /**
@@ -45,11 +46,11 @@ class AttributeAlter extends \SimpleSAML\Auth\ProcessingFilter
     /**
      * Initialize this filter.
      *
-     * @param array &$config  Configuration information about this filter.
+     * @param array $config  Configuration information about this filter.
      * @param mixed $reserved  For future use.
      * @throws \SimpleSAML\Error\Exception In case of invalid configuration.
      */
-    public function __construct(&$config, $reserved)
+    public function __construct($config, $reserved)
     {
         parent::__construct($config, $reserved);
 
@@ -90,7 +91,6 @@ class AttributeAlter extends \SimpleSAML\Auth\ProcessingFilter
      *
      * @param array &$request The current request.
      * @throws \SimpleSAML\Error\Exception In case of invalid configuration.
-     * @return void
      */
     public function process(&$request)
     {

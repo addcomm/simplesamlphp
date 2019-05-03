@@ -22,6 +22,7 @@ namespace SimpleSAML\Module\exampleauth\Auth\Source;
  *
  * @package SimpleSAMLphp
  */
+
 class External extends \SimpleSAML\Auth\Source
 {
     /**
@@ -46,11 +47,10 @@ class External extends \SimpleSAML\Auth\Source
         // Do any other configuration we need here
     }
 
-
     /**
      * Retrieve attributes for the user.
      *
-     * @return array|null  The user's attributes, or NULL if the user isn't authenticated.
+     * @return array|NULL  The user's attributes, or NULL if the user isn't authenticated.
      */
     private function getUser()
     {
@@ -91,12 +91,10 @@ class External extends \SimpleSAML\Auth\Source
         return $attributes;
     }
 
-
     /**
      * Log in using an external authentication helper.
      *
      * @param array &$state  Information about the current authentication.
-     * @return void
      */
     public function authenticate(&$state)
     {
@@ -174,7 +172,6 @@ class External extends \SimpleSAML\Auth\Source
         assert(false);
     }
 
-
     /**
      * Resume authentication process.
      *
@@ -182,9 +179,6 @@ class External extends \SimpleSAML\Auth\Source
      * entered his or her credentials.
      *
      * @param array &$state  The authentication state.
-     * @return void
-     * @throws \SimpleSAML\Error\BadRequest
-     * @throws \SimpleSAML\Error\Exception
      */
     public static function resume()
     {
@@ -254,13 +248,11 @@ class External extends \SimpleSAML\Auth\Source
         assert(false);
     }
 
-
     /**
      * This function is called when the user start a logout operation, for example
      * by logging out of a SP that supports single logout.
      *
      * @param array &$state  The logout state array.
-     * @return void
      */
     public function logout(&$state)
     {
